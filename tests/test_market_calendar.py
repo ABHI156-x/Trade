@@ -17,7 +17,7 @@ class TestIsTradingDay:
     def test_weekday_is_trading_day(self):
         # 22 Jan 2024 is a Monday (also a special NSE holiday)
         # Use a regular Monday
-        assert is_trading_day(date(2024, 1, 15)) is False  # holiday (Republic day week?)
+        assert is_trading_day(date(2024, 1, 22)) is False  # special NSE holiday (Ram Mandir)
         # 8 Jan 2024 – regular Monday, not a holiday
         assert is_trading_day(date(2024, 1, 8)) is True
 

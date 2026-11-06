@@ -382,3 +382,35 @@ def build_portfolio_summary(report):
     summary.update(advanced_metrics)
 
     return summary
+
+
+def print_portfolio_dashboard(report):
+    """
+    Print a complete formatted portfolio dashboard to the console.
+    """
+    summary = build_portfolio_summary(report)
+    print("\n" + "=" * 65)
+    print("             PORTFOLIO BACKTEST DASHBOARD")
+    print("=" * 65)
+    print(f"Initial Capital   : Rs. {summary.get('initial_capital', 0):,.2f}")
+    print(f"Final Capital     : Rs. {summary.get('final_capital', 0):,.2f}")
+    print(f"Net P&L           : Rs. {summary.get('net_pnl', 0):,.2f} ({summary.get('return_percent', 0):.2f}%)")
+    print(f"Total Trades      : {summary.get('total_trades', 0)} (Wins: {summary.get('winning_trades', 0)}, Losses: {summary.get('losing_trades', 0)})")
+    print(f"Win Rate          : {summary.get('win_rate', 0):.2f}%")
+    print(f"Profit Factor     : {summary.get('profit_factor', 0):.2f}")
+    print(f"Max Drawdown      : {summary.get('max_drawdown_percent', 0):.2f}% (Rs. {summary.get('max_drawdown_amount', 0):,.2f})")
+    print(f"Total Costs       : Rs. {summary.get('total_costs', 0):,.2f}")
+    print(f"Blocked Entries   : {summary.get('blocked_entries', 0)}")
+
+    symbols_df = get_symbol_performance(report)
+    if not symbols_df.empty:
+        print("\n--- SYMBOL PERFORMANCE ---")
+        print(symbols_df.to_string(index=False))
+
+    daily_df = get_daily_performance(report)
+    if not daily_df.empty:
+        print("\n--- DAILY PERFORMANCE ---")
+        print(daily_df.to_string(index=False))
+
+    print("=" * 65 + "\n")
+    return summary

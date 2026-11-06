@@ -41,7 +41,7 @@ class TestConsecutiveLossCircuitBreaker:
         assert "Circuit breaker" in reason
 
     def test_resets_streak_on_win(self):
-        guard = AdvancedRiskGuard(max_consecutive_losses=2)
+        guard = AdvancedRiskGuard(max_consecutive_losses=2, max_trades=5)
         guard.record_trade(-100)
         guard.record_trade(50)   # win resets streak
         guard.record_trade(-100)

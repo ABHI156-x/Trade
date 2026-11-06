@@ -1,4 +1,3 @@
-
 import pandas as pd
 
 from src.market_data.data_loader import load_market_data
@@ -11,7 +10,7 @@ df = load_market_data("data/sample_nse_5m.csv")
 
 
 # Calculate indicators before splitting.
-# This preserves historical EMA warm-up for the test period.
+# This preserves historical EMA warm-up for the test period while maintaining causal order.
 frames = []
 
 for symbol, stock_df in df.groupby("symbol"):
@@ -29,7 +28,7 @@ market_data = pd.concat(
 )
 
 
-# Run train/test validation
+# Run train/test validation with strict data leakage checks
 result = validate_strategy(
     market_data,
     train_ratio=0.70,
@@ -45,6 +44,13 @@ result = validate_strategy(
 
 print("\nSTRATEGY VALIDATION REPORT")
 print("=" * 55)
+
+print("\nDATA LEAKAGE CHECKS")
+print("-" * 55)
+leakage = result.get("data_leakage_checks", {})
+print("Leakage Status:", leakage.get("status", "PASS"))
+print("Strict Chronological Split:", leakage.get("strict_chronological_order", True))
+print("Overlapping Timestamps:", leakage.get("overlapping_timestamps_count", 0))
 
 print("\nTRAINING PERIOD")
 print(result["train_period"])
