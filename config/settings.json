@@ -1,0 +1,45 @@
+
+{
+  "project_name": "Indian Day Trader",
+  "market": {
+    "exchanges": ["NSE", "BSE"],
+    "currency": "INR",
+    "timezone": "Asia/Kolkata",
+    "equity_market_open": "09:15",
+    "equity_market_close": "15:30"
+  },
+  "trading": {
+    "mode": "paper",
+    "allow_live_orders": false,
+    "allow_options": false,
+    "allow_short_selling": false
+  },
+  "risk": {
+    "max_daily_loss": 500,
+    "max_loss_per_trade": 100,
+    "max_trades_per_day": 3
+  },
+  "costs": {
+    "profile": "groww_equity_intraday",
+    "exchange": "NSE",
+    "brokerage": {
+      "rate": 0.001,
+      "maximum_per_order": 20,
+      "minimum_per_order": 5,
+      "minimum_rate": 0.025
+    },
+    "stt_sell_rate": 0.00025,
+    "stamp_duty_buy_rate": 0.00003,
+    "exchange_transaction_rate": {
+      "NSE": 0.0000297,
+      "BSE": 0.0000375
+    },
+    "sebi_turnover_rate": 0.000001,
+    "ipft_rate": {
+      "NSE": 0.000001,
+      "BSE": 0
+    },
+    "gst_rate": 0.18,
+    "slippage_per_share": 0.05
+  }
+}
